@@ -48,7 +48,7 @@ elif test "$(uname)" = "Darwin" ; then
   declare cpu_num=$(sysctl -n machdep.cpu.thread_count)
 fi
 
-declare need_build_openssl=1
+declare need_build_openssl=0
 declare need_build_libevent=1
 declare need_build_jsoncpp=1
 declare need_build_boost=1
@@ -62,7 +62,7 @@ declare test=0
 pasres_arguments() {
   for var in "$@"; do
     case "$var" in
-    noOpenSSL)
+    openSSL)
       need_build_openssl=0
       ;;
     noEvent)
@@ -236,10 +236,10 @@ BuildOpenSSL() {
   if [ $verbose -eq 0 ]; then
     echo "build openssl without detail log."
     make depend &> opensslbuild.txt
-    make -j $cpu_num &> opensslbuild.txt
+    make  &> opensslbuild.txt
   else
     make depend
-    make -j $cpu_num
+    make 
   fi
   if [ $? -ne 0 ]; then
     exit 1
@@ -285,9 +285,9 @@ BuildLibevent() {
   fi
   if [ $verbose -eq 0 ]; then
     echo "build libevent without detail log."
-    make -j $cpu_num &> libeventbuild.txt
+    make  &> libeventbuild.txt
   else
-    make -j $cpu_num
+    make 
   fi
   if [ $? -ne 0 ]; then
     exit 1
@@ -331,9 +331,9 @@ BuildJsonCPP() {
     exit 1
   fi
   if [ $verbose -eq 0 ]; then
-    make -j $cpu_num &> jsoncppbuild.txt
+    make  &> jsoncppbuild.txt
   else
-    make -j $cpu_num
+    make 
   fi
   if [ $? -ne 0 ]; then
     exit 1
@@ -412,9 +412,9 @@ BuildRocketMQClient() {
   cmake .. $ROCKETMQ_CMAKE_FLAG
   if [ $verbose -eq 0 ]; then
     echo "build rocketmq without detail log."
-    make -j $cpu_num &> buildclient.txt
+    make  &> buildclient.txt
   else
-    make -j $cpu_num
+    make 
   fi
   if [ $? -ne 0 ]; then
     echo "build error....."
@@ -456,9 +456,9 @@ BuildGoogleTest() {
     exit 1
   fi
   if [ $verbose -eq 0 ]; then
-    make -j $cpu_num &> gtestbuild.txt
+    make  &> gtestbuild.txt
   else
-    make -j $cpu_num
+    make 
   fi
   if [ $? -ne 0 ]; then
     exit 1
