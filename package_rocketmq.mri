@@ -11,8 +11,6 @@ addlib ../bin/lib/libboost_serialization.a
 addlib ../bin/lib/libboost_system.a
 addlib ../bin/lib/libboost_thread.a
 addlib ../bin/lib/libboost_wserialization.a
-addlib ../bin/lib/libssl.a
-addlib ../bin/lib/libcrypto.a
 addlib ../bin/lib/libevent.a
 addlib ../bin/lib/libevent_core.a
 addlib ../bin/lib/libevent_extra.a

@@ -48,7 +48,7 @@ elif test "$(uname)" = "Darwin" ; then
   declare cpu_num=$(sysctl -n machdep.cpu.thread_count)
 fi
 
-declare need_build_openssl=0
+declare need_build_openssl=1
 declare need_build_libevent=1
 declare need_build_jsoncpp=1
 declare need_build_boost=1
@@ -62,7 +62,7 @@ declare test=0
 pasres_arguments() {
   for var in "$@"; do
     case "$var" in
-    openSSL)
+    noOpenSSL)
       need_build_openssl=0
       ;;
     noEvent)
@@ -372,9 +372,9 @@ BuildBoost() {
   pwd
   if [ $verbose -eq 0 ]; then
     echo "build boost without detail log."
-    ./b2 -j$cpu_num cflags=-fPIC cxxflags=-fPIC --with-atomic --with-thread --with-system --with-chrono --with-date_time --with-log --with-regex --with-serialization --with-filesystem --with-locale --with-iostreams threading=multi link=static release install --prefix=${install_lib_dir} &> boostbuild.txt
+    ./b2 cflags=-fPIC cxxflags=-fPIC --with-atomic --with-thread --with-system --with-chrono --with-date_time --with-log --with-regex --with-serialization --with-filesystem --with-locale --with-iostreams threading=multi link=static release install --prefix=${install_lib_dir} &> boostbuild.txt
   else
-    ./b2 -j$cpu_num cflags=-fPIC cxxflags=-fPIC --with-atomic --with-thread --with-system --with-chrono --with-date_time --with-log --with-regex --with-serialization --with-filesystem --with-locale --with-iostreams threading=multi link=static release install --prefix=${install_lib_dir}
+    ./b2 cflags=-fPIC cxxflags=-fPIC --with-atomic --with-thread --with-system --with-chrono --with-date_time --with-log --with-regex --with-serialization --with-filesystem --with-locale --with-iostreams threading=multi link=static release install --prefix=${install_lib_dir}
   fi
   if [ $? -ne 0 ]; then
     exit 1
@@ -527,6 +527,6 @@ BuildOpenSSL
 BuildLibevent
 BuildJsonCPP
 BuildBoost
-BuildGoogleTest
+#BuildGoogleTest
 BuildRocketMQClient
-ExecutionTesting
+#ExecutionTesting

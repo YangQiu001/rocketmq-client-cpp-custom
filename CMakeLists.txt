@@ -42,7 +42,7 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
 set(CMAKE_VERBOSE_MAKEFILE 1)
 option(BUILD_ROCKETMQ_STATIC "build rocketmq-client static library" ON)
-option(BUILD_ROCKETMQ_SHARED "build rocketmq-client shared library" ON)
+option(BUILD_ROCKETMQ_SHARED "build rocketmq-client shared library" OFF)
 
 option(OPENSSL_USE_STATIC_LIBS "only find openssl static libs" ON) # only find static libs
 if (WIN32)
